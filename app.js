@@ -39,6 +39,8 @@ console.log(allProducts);
 
 //Math function
 function calcRandomNumber() {
+  // newArray = [];
+  // while (newArray < 3);
   for (var i = 0; i < 3; i++) {
     var randomDigit = Math.floor(Math.random() * allProducts.length);
     allProducts[randomDigit].shownTally += 1;
@@ -70,35 +72,3 @@ function handleClick(e) {
   calcRandomNumber();
   renderImage();
 };
-
-// function handleClick(e) {
-//   console.log(event.target);
-//   if (event.target.id === 'stooges') {
-//     alert('You had one job! Click on only the h2 please!');
-//   }
-//
-//   var larry = document.getElementById('larry');
-//   var curly = document.getElementById('curly');
-//   var moe = document.getElementById('moe');
-//   var iggy = document.getElementById('iggy');
-//
-//   if (event.target.id === 'larry') {
-//     larryClicks += 1;
-//     console.log('Larry has been clicked ' + larryClicks + ' times.');
-//   }
-//   if (event.target.id === 'curly') {
-//     curlyClicks += 1;
-//     console.log('Curly has been clicked ' + curlyClicks + ' times.');
-//   }
-//   if (event.target.id === 'moe') {
-//     moeClicks += 1;
-//     console.log('Moe has been clicked ' + moeClicks + ' times.');
-//   }
-//   if (event.target.id === 'iggy') {
-//     iggyClicks += 1;
-//     console.log('Iggy has been clicked ' + iggyClicks + ' times.');
-//   }
-// };
-//     console.log('Iggy has been clicked ' + iggyClicks + ' times.');
-//   }
-// };
