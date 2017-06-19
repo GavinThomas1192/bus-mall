@@ -41,6 +41,7 @@ console.log(allProducts);
 function calcRandomNumber() {
   for (var i = 0; i < 3; i++) {
     var randomDigit = Math.floor(Math.random() * allProducts.length);
+    allProducts[randomDigit].shownTally += 1;
     queProducts.push(allProducts[randomDigit]);
   }
 };
@@ -51,6 +52,7 @@ function renderImage() {
   for (var i = 0; i < queProducts.length; i++) {
     imgEl = document.createElement('img');
     imgEl.src = queProducts[i].path;
+    imgEl.id = queProducts[i].name;
     itemChoices.appendChild(imgEl);
   }
   queProducts = [];
@@ -59,6 +61,12 @@ function renderImage() {
 container.addEventListener('click', handleClick);
 
 function handleClick(e) {
+  for (var i = 0; i < allProducts.length; i++) {
+    if (event.target.id === allProducts[i].name) {
+      allProducts[i].tally += 1;
+    }
+
+  }
   calcRandomNumber();
   renderImage();
 };
