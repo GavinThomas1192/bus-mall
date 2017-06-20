@@ -12,6 +12,7 @@ body {
   display: inline-block;
   max-width: 300px;
   max-height: 300px;
+  padding-right: 30px;
 }
 button {
   background: #3498db;
