@@ -13,6 +13,7 @@ function saleItem(name, path) {
   this.path = path;
   this.tally = 0;
   this.shownTally = 0;
+  this.conversion = 0;
   allProducts.push(this);
 };
 
@@ -37,7 +38,24 @@ var usb = new saleItem('usb', 'img/usb.gif');
 var waterCan = new saleItem('water-can', 'img/water-can.jpg');
 var wineGlass = new saleItem('wine-glass', 'img/wine-glass.jpg');
 
-console.log(allProducts);
+function calcConversion() {
+  for (var i = 0; i < allProducts.length; i++) {
+    if (allProducts[i].tally === 0) {
+      allProducts[i].conversion = 0;
+    } else {
+      allProducts[i].conversion = allProducts[i].tally / allProducts[i].shownTally;
+    }
+  }
+};
+
+// function checkArray(array, value) {
+//   for (var i = 0; i < array.length; i++) {
+//     if (value === array[i]) {
+//       return false;
+//     }
+//   }
+// };
+// array.indexOf(value)
 //Math function
 function calcRandomNumber() {
   while (queProducts.length < 3) {
@@ -103,7 +121,6 @@ function renderImage() {
     imgEl.id = queProducts[i].name;
     itemChoices.appendChild(imgEl);
     // console.log(queProducts);
-
   }
   queProducts = [];
 };
@@ -119,7 +136,7 @@ function handleClick(e) {
 
   }
   calcRandomNumber();
-  // unique();
+  calcConversion();
   renderImage();
   if (totalTally.length == 25) {
     container.removeEventListener('click', handleClick, false);
