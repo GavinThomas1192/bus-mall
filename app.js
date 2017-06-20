@@ -37,7 +37,6 @@ var windGlass = new saleItem('wind-glass', 'img/wine-glass.jpg');
 
 console.log(allProducts);
 
-
 //Math function
 function calcRandomNumber() {
   while (queProducts.length < 3) {
