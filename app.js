@@ -1,12 +1,11 @@
 'use-strict';
 //TOdo
-//**Make random number function
-//**Link to picutres
-var allProducts = [];
+
 var queProducts = [];
 var newArray = [];
-var totalTally = [];
-var container = document.getElementById('itemChoices');
+saleItem.allProducts = [];
+saleItem.totalTally = [];
+saleItem.container = document.getElementById('itemChoices');
 
 function saleItem(name, path) {
   this.name = name;
@@ -14,7 +13,7 @@ function saleItem(name, path) {
   this.tally = 0;
   this.shownTally = 0;
   this.conversion = 0;
-  allProducts.push(this);
+  saleItem.allProducts.push(this);
 };
 
 var bag = new saleItem('bag', 'img/bag.jpg');
@@ -39,31 +38,34 @@ var waterCan = new saleItem('water-can', 'img/water-can.jpg');
 var wineGlass = new saleItem('wine-glass', 'img/wine-glass.jpg');
 
 function calcConversion() {
-  for (var i = 0; i < allProducts.length; i++) {
-    if (allProducts[i].tally === 0) {
-      allProducts[i].conversion = 0;
+  for (var i = 0; i < saleItem.allProducts.length; i++) {
+    if (saleItem.allProducts[i].tally === 0) {
+      saleItem.allProducts[i].conversion = 0;
     } else {
-      allProducts[i].conversion = allProducts[i].tally / allProducts[i].shownTally;
+      saleItem.allProducts[i].conversion = saleItem.allProducts[i].tally / saleItem.allProducts[i].shownTally;
     }
   }
 };
 
+
 // function checkArray(array, value) {
 //   for (var i = 0; i < array.length; i++) {
 //     if (value === array[i]) {
+//       console.log('false');
 //       return false;
 //     }
 //   }
 // };
+// checkArray(queProducts, newArray[0]);
 // array.indexOf(value)
 //Math function
 function calcRandomNumber() {
   while (queProducts.length < 3) {
     for (var i = 0; i < 3; i++) {
-      var randomDigit = Math.floor(Math.random() * allProducts.length);
-      allProducts[randomDigit].shownTally += 1;
-      queProducts.push(allProducts[randomDigit]);
-      newArray.push(allProducts[randomDigit]);
+      var randomDigit = Math.floor(Math.random() * saleItem.allProducts.length);
+      saleItem.allProducts[randomDigit].shownTally += 1;
+      queProducts.push(saleItem.allProducts[randomDigit]);
+      newArray.push(saleItem.allProducts[randomDigit]);
     }
     unique();
   }
@@ -124,21 +126,22 @@ function renderImage() {
   queProducts = [];
 };
 
-container.addEventListener('click', handleClick);
+saleItem.container.addEventListener('click', handleClick);
 
 function handleClick(e) {
-  for (var i = 0; i < allProducts.length; i++) {
-    if (event.target.id === allProducts[i].name) {
-      allProducts[i].tally += 1;
-      totalTally.push(allProducts[i]);
+  for (var i = 0; i < saleItem.allProducts.length; i++) {
+    if (event.target.id === saleItem.allProducts[i].name) {
+      saleItem.allProducts[i].tally += 1;
+      saleItem.totalTally.push(saleItem.allProducts[i]);
     }
 
   }
   calcRandomNumber();
   calcConversion();
   renderImage();
-  if (totalTally.length == 25) {
-    container.removeEventListener('click', handleClick, false);
+  if (saleItem.totalTally.length == 25) {
+    saleItem.container.removeEventListener('click', handleClick, false);
+    saleItem.container.innerHTML = '';
     alert('Thats it! Thank you for participating!');
   }
 
