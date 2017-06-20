@@ -3,6 +3,7 @@
 
 <head>
   <link rel="stylesheet" href="style.css">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js'></script>
   <meta charset="utf-8">
   <title></title>
 </head>
@@ -15,12 +16,13 @@
     <h2>Thank you for your opinion you're important to us </h2>
 
     <h3>Please click on the image that you would be most likely to buy. You must click one image, and you must only click on the image graphic. After 25 choices your survey will end.</h3>
+    <button id="chartButton">Render Results</button>
     <section id="itemChoices">
-      <button>Please click here to begin</button>
+      <button>Click to Begin</button>
 
     </section>
   </main>
-  <script https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js></script>
+  <canvas id="myChart" width="960" height="600"></canvas>
   <script src='app.js'></script>
 </body>
 

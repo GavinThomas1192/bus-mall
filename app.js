@@ -1,11 +1,13 @@
 'use-strict';
 //TOdo
-
+var titles = [];
+var votesForTitles = [];
 var queProducts = [];
 var newArray = [];
 saleItem.allProducts = [];
 saleItem.totalTally = [];
 saleItem.container = document.getElementById('itemChoices');
+saleItem.chartButton = document.getElementById('chartButton');
 
 function saleItem(name, path) {
   this.name = name;
@@ -37,6 +39,65 @@ var usb = new saleItem('usb', 'img/usb.gif');
 var waterCan = new saleItem('water-can', 'img/water-can.jpg');
 var wineGlass = new saleItem('wine-glass', 'img/wine-glass.jpg');
 
+function updateGraphArrays() {
+  for (var i = 0; i < saleItem.allProducts.length; i++) {
+    titles.push(saleItem.allProducts[i].name);
+    votesForTitles.push(saleItem.allProducts[i].tally);
+  }
+};
+var data = {
+  labels: titles, // titles array we declared earlier
+  datasets: [{
+    data: votesForTitles, // votes array we declared earlier
+    backgroundColor: [
+      'rgb(200, 52, 52, )',
+      'rgb(200, 52, 52, )',
+      'rgb(200, 52, 52, )',
+      'rgb(200, 52, 52, )',
+      'rgb(400, 52, 52, )',
+      'rgb(400, 52, 52, )',
+      'rgb(56, 52, 52, )',
+      'rgb(59, 52, 52, )',
+      'rgb(60, 52, 52, )',
+      'rgb(94, 52, 52, )',
+      'rgb(70, 52, 52, )',
+      'rgb(45, 52, 52, )',
+      'rgb(34, 52, 52, )',
+      'rgb(34, 52, 52, )',
+      'rgb(56, 52, 52, )',
+      'rgb(98, 52, 52, )',
+      'rgb(76, 52, 52, )',
+      'rgb(52, 45, 52, )',
+      'rgb(52, 23, 52, )',
+      'rgb(52, 67, 52, )',
+
+
+    ],
+    hoverBackgroundColor: [
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple'
+    ]
+  }]
+};
+
 function calcConversion() {
   for (var i = 0; i < saleItem.allProducts.length; i++) {
     if (saleItem.allProducts[i].tally === 0) {
@@ -48,17 +109,7 @@ function calcConversion() {
 };
 
 
-// function checkArray(array, value) {
-//   for (var i = 0; i < array.length; i++) {
-//     if (value === array[i]) {
-//       console.log('false');
-//       return false;
-//     }
-//   }
-// };
-// checkArray(queProducts, newArray[0]);
-// array.indexOf(value)
-//Math function
+
 function calcRandomNumber() {
   while (queProducts.length < 3) {
     for (var i = 0; i < 3; i++) {
@@ -70,19 +121,6 @@ function calcRandomNumber() {
     unique();
   }
 };
-
-// function noDups() {
-//   for (var i = 0; i < 3; i++) {
-//     if (queProducts[i] === newArray[0] || queProducts[i] === newArray[1] || queProducts[i] === newArray[2]) {
-//       console.log('test');
-//       // queProducts.pop();
-//       console.log('after the pop');
-//     }
-//     console.log('else');
-//     newArray = [];
-//
-//   }
-// }
 
 function unique() {
   var a = [], // uniques get placed into here
@@ -125,8 +163,14 @@ function renderImage() {
   }
   queProducts = [];
 };
-
+saleItem.chartButton.addEventListener('click', startGraphButton);
 saleItem.container.addEventListener('click', handleClick);
+
+function startGraphButton(r) {
+  updateGraphArrays();
+  renderChart();
+
+}
 
 function handleClick(e) {
   for (var i = 0; i < saleItem.allProducts.length; i++) {
@@ -146,3 +190,28 @@ function handleClick(e) {
   }
 
 };
+
+function renderChart() {
+  var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false,
+      animation: {
+        duration: 1000,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
+  chartDrawn = true;
+}

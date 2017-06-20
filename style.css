@@ -22,6 +22,10 @@ body {
   border: 3px solid black;
   box-shadow: 3px 3px #000;
 }
+
+#myChart {
+border: 1px solid black;
+}
 button {
   background: #ddd;
   background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
