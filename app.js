@@ -37,25 +37,57 @@ var windGlass = new saleItem('wind-glass', 'img/wine-glass.jpg');
 
 console.log(allProducts);
 
+
 //Math function
 function calcRandomNumber() {
-  // newArray = [];
-  // while (newArray < 3);
-  for (var i = 0; i < 3; i++) {
-    var randomDigit = Math.floor(Math.random() * allProducts.length);
-    allProducts[randomDigit].shownTally += 1;
-    queProducts.push(allProducts[randomDigit]);
+  while (queProducts.length < 3) {
+    for (var i = 0; i < 3; i++) {
+      var randomDigit = Math.floor(Math.random() * allProducts.length);
+      allProducts[randomDigit].shownTally += 1;
+      queProducts.push(allProducts[randomDigit]);
+    }
+    unique();
   }
 };
+
+function unique() {
+  var a = [], // uniques get placed into here
+    b = 0; // counter to test if value is already in array 'a'
+
+  for (i = 0; i < queProducts.length; i++) {
+    var current = queProducts[i]; // get a value from the original array
+
+    for (j = 0; j < a.length; j++) { // loop and check if value is in new array
+      if (current != a[j]) {
+        b++; // if its not in the new array increase counter
+      }
+    }
+
+    if (b == a.length) { // if the counter increased on all values
+      // then its not in the new array yet
+      a.push(current); // put it in
+    }
+
+    b = 0; // reset counter
+  }
+
+  queProducts.length = 0; // after new array is finished creating delete the original array
+  for (i = 0; i < a.length; i++) {
+    queProducts.push(a[i]); // push all the new values into the original
+  }
+
+  return this; // return this to allow method chaining
+}
 
 function renderImage() {
   var itemChoices = document.getElementById('itemChoices');
   itemChoices.innerHTML = '';
-  for (var i = 0; i < queProducts.length; i++) {
+  for (var i = 0; i < 3; i++) {
     imgEl = document.createElement('img');
     imgEl.src = queProducts[i].path;
     imgEl.id = queProducts[i].name;
     itemChoices.appendChild(imgEl);
+
   }
   queProducts = [];
 };
@@ -70,5 +102,6 @@ function handleClick(e) {
 
   }
   calcRandomNumber();
+  unique();
   renderImage();
 };
