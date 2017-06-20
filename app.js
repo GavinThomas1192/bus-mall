@@ -64,7 +64,6 @@ function calcRandomNumber() {
       allProducts[randomDigit].shownTally += 1;
       queProducts.push(allProducts[randomDigit]);
       newArray.push(allProducts[randomDigit]);
-      // noDups();
     }
     unique();
   }
