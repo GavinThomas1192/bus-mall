@@ -4,6 +4,7 @@
 //**Link to picutres
 var allProducts = [];
 var queProducts = [];
+var newArray = [];
 var container = document.getElementById('itemChoices');
 
 function saleItem(name, path) {
@@ -33,10 +34,9 @@ var tauntaun = new saleItem('tauntaun', 'img/tauntaun.jpg');
 var unicorn = new saleItem('unicorn', 'img/unicorn.jpg');
 var usb = new saleItem('usb', 'img/usb.gif');
 var waterCan = new saleItem('water-can', 'img/water-can.jpg');
-var windGlass = new saleItem('wind-glass', 'img/wine-glass.jpg');
+var wineGlass = new saleItem('wine-glass', 'img/wine-glass.jpg');
 
 console.log(allProducts);
-
 //Math function
 function calcRandomNumber() {
   while (queProducts.length < 3) {
@@ -44,10 +44,25 @@ function calcRandomNumber() {
       var randomDigit = Math.floor(Math.random() * allProducts.length);
       allProducts[randomDigit].shownTally += 1;
       queProducts.push(allProducts[randomDigit]);
+      newArray.push(allProducts[randomDigit]);
+      noDups();
     }
     unique();
   }
 };
+
+function noDups() {
+  for (var i = 0; i < 3; i++) {
+    if (queProducts[i].name === newArray[i].name) {
+      console.log('test');
+      queProducts.pop();
+      console.log('after the pop');
+    }
+    console.log('else');
+    newArray = [];
+
+  }
+}
 
 function unique() {
   var a = [], // uniques get placed into here
@@ -86,6 +101,7 @@ function renderImage() {
     imgEl.src = queProducts[i].path;
     imgEl.id = queProducts[i].name;
     itemChoices.appendChild(imgEl);
+    console.log(queProducts);
 
   }
   queProducts = [];
@@ -101,6 +117,6 @@ function handleClick(e) {
 
   }
   calcRandomNumber();
-  unique();
+  // unique();
   renderImage();
 };
