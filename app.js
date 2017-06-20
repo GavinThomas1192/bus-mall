@@ -5,6 +5,7 @@
 var allProducts = [];
 var queProducts = [];
 var newArray = [];
+var totalTally = [];
 var container = document.getElementById('itemChoices');
 
 function saleItem(name, path) {
@@ -101,7 +102,7 @@ function renderImage() {
     imgEl.src = queProducts[i].path;
     imgEl.id = queProducts[i].name;
     itemChoices.appendChild(imgEl);
-    console.log(queProducts);
+    // console.log(queProducts);
 
   }
   queProducts = [];
@@ -113,10 +114,16 @@ function handleClick(e) {
   for (var i = 0; i < allProducts.length; i++) {
     if (event.target.id === allProducts[i].name) {
       allProducts[i].tally += 1;
+      totalTally.push(allProducts[i]);
     }
 
   }
   calcRandomNumber();
   // unique();
   renderImage();
+  if (totalTally.length == 25) {
+    container.removeEventListener('click', handleClick, false);
+    alert('Thats it! Thank you for participating!');
+  }
+
 };
