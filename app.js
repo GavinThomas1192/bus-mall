@@ -2,12 +2,13 @@
 //TOdo
 var titles = [];
 var votesForTitles = [];
+var graphShownTally = [];
 var queProducts = [];
 var newArray = [];
 saleItem.allProducts = [];
 saleItem.totalTally = [];
 saleItem.container = document.getElementById('itemChoices');
-saleItem.chartButton = document.getElementById('chartButton');
+saleItem.chartButton = document.createElement('button');
 
 function saleItem(name, path) {
   this.name = name;
@@ -43,57 +44,84 @@ function updateGraphArrays() {
   for (var i = 0; i < saleItem.allProducts.length; i++) {
     titles.push(saleItem.allProducts[i].name);
     votesForTitles.push(saleItem.allProducts[i].tally);
+    graphShownTally.push(saleItem.allProducts[i].shownTally);
   }
 };
 var data = {
+  label: 'Description of Objects',
   labels: titles, // titles array we declared earlier
   datasets: [{
+    label: 'Times Clicked',
     data: votesForTitles, // votes array we declared earlier
     backgroundColor: [
-      'rgb(200, 52, 52, )',
-      'rgb(200, 52, 52, )',
-      'rgb(200, 52, 52, )',
-      'rgb(200, 52, 52, )',
-      'rgb(400, 52, 52, )',
-      'rgb(400, 52, 52, )',
-      'rgb(56, 52, 52, )',
-      'rgb(59, 52, 52, )',
-      'rgb(60, 52, 52, )',
-      'rgb(94, 52, 52, )',
-      'rgb(70, 52, 52, )',
-      'rgb(45, 52, 52, )',
-      'rgb(34, 52, 52, )',
-      'rgb(34, 52, 52, )',
-      'rgb(56, 52, 52, )',
-      'rgb(98, 52, 52, )',
-      'rgb(76, 52, 52, )',
-      'rgb(52, 45, 52, )',
-      'rgb(52, 23, 52, )',
-      'rgb(52, 67, 52, )',
-
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
+      'rgba(45, 142, 244, 0.5)',
 
     ],
     hoverBackgroundColor: [
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple',
-      'purple'
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb',
+      '#bbb'
+    ],
+  }, {
+    label: 'Times Shown',
+    data: graphShownTally,
+    backgroundColor: [
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)',
+      'rgba(233, 43, 17, 0.5)'
     ]
   }]
 };
@@ -107,8 +135,6 @@ function calcConversion() {
     }
   }
 };
-
-
 
 function calcRandomNumber() {
   while (queProducts.length < 3) {
@@ -169,7 +195,6 @@ saleItem.container.addEventListener('click', handleClick);
 function startGraphButton(r) {
   updateGraphArrays();
   renderChart();
-
 }
 
 function handleClick(e) {
@@ -186,7 +211,9 @@ function handleClick(e) {
   if (saleItem.totalTally.length == 25) {
     saleItem.container.removeEventListener('click', handleClick, false);
     saleItem.container.innerHTML = '';
-    alert('Thats it! Thank you for participating!');
+    saleItem.chartButton.textContent = 'View Results';
+    saleItem.container.appendChild(saleItem.chartButton);
+
   }
 
 };
@@ -201,14 +228,21 @@ function renderChart() {
       animation: {
         duration: 1000,
         easing: 'easeOutBounce'
-      }
+      },
+      title: {
+        display: true,
+        text: 'Participants Choices',
+        fontSize: 32,
+        fontColor: '#000'
+      },
+
     },
     scales: {
       yAxes: [{
         ticks: {
           max: 10,
           min: 0,
-          stepSize: 1.0
+          stepSize: 1
         }
       }]
     }
