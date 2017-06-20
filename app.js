@@ -45,24 +45,24 @@ function calcRandomNumber() {
       allProducts[randomDigit].shownTally += 1;
       queProducts.push(allProducts[randomDigit]);
       newArray.push(allProducts[randomDigit]);
-      noDups();
+      // noDups();
     }
     unique();
   }
 };
 
-function noDups() {
-  for (var i = 0; i < 3; i++) {
-    if (queProducts[i].name === newArray[i].name) {
-      console.log('test');
-      queProducts.pop();
-      console.log('after the pop');
-    }
-    console.log('else');
-    newArray = [];
-
-  }
-}
+// function noDups() {
+//   for (var i = 0; i < 3; i++) {
+//     if (queProducts[i] === newArray[0] || queProducts[i] === newArray[1] || queProducts[i] === newArray[2]) {
+//       console.log('test');
+//       // queProducts.pop();
+//       console.log('after the pop');
+//     }
+//     console.log('else');
+//     newArray = [];
+//
+//   }
+// }
 
 function unique() {
   var a = [], // uniques get placed into here
