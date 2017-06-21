@@ -13,6 +13,8 @@ saleItem.totalTally = [];
 saleItem.container = document.getElementById('itemChoices');
 saleItem.chartButton = document.createElement('button');
 
+updateDataSet();
+
 function saleItem(name, path) {
   this.name = name;
   this.path = path;
@@ -22,26 +24,33 @@ function saleItem(name, path) {
   saleItem.allProducts.push(this);
 };
 
-var bag = new saleItem('bag', 'img/bag.jpg');
-var banana = new saleItem('banana', 'img/banana.jpg');
-var bathroom = new saleItem('bathroom', 'img/bathroom.jpg');
-var boots = new saleItem('boots', 'img/boots.jpg');
-var breakfast = new saleItem('breakfast', 'img/breakfast.jpg');
-var bubblegum = new saleItem('bubblegum', 'img/bubblegum.jpg');
-var chair = new saleItem('chair', 'img/chair.jpg');
-var cthulhu = new saleItem('cthulhu', 'img/cthulhu.jpg');
-var dogDuck = new saleItem('dog-duck', 'img/dog-duck.jpg');
-var dragon = new saleItem('dragon', 'img/dragon.jpg');
-var pen = new saleItem('pen', 'img/pen.jpg');
-var petSweep = new saleItem('pet-sweep', 'img/pet-sweep.jpg');
-var scissors = new saleItem('scissors', 'img/scissors.jpg');
-var shark = new saleItem('shark', 'img/shark.jpg');
-var sweep = new saleItem('sweep', 'img/sweep.png');
-var tauntaun = new saleItem('tauntaun', 'img/tauntaun.jpg');
-var unicorn = new saleItem('unicorn', 'img/unicorn.jpg');
-var usb = new saleItem('usb', 'img/usb.gif');
-var waterCan = new saleItem('water-can', 'img/water-can.jpg');
-var wineGlass = new saleItem('wine-glass', 'img/wine-glass.jpg');
+function updateDataSet() {
+  var storedAllProducts = JSON.parse(localStorage.getItem('dataObject'));
+  if (storedAllProducts !== null) {
+    saleItem.allProducts = storedAllProducts;
+  } else {
+    var bag = new saleItem('bag', 'img/bag.jpg');
+    var banana = new saleItem('banana', 'img/banana.jpg');
+    var bathroom = new saleItem('bathroom', 'img/bathroom.jpg');
+    var boots = new saleItem('boots', 'img/boots.jpg');
+    var breakfast = new saleItem('breakfast', 'img/breakfast.jpg');
+    var bubblegum = new saleItem('bubblegum', 'img/bubblegum.jpg');
+    var chair = new saleItem('chair', 'img/chair.jpg');
+    var cthulhu = new saleItem('cthulhu', 'img/cthulhu.jpg');
+    var dogDuck = new saleItem('dog-duck', 'img/dog-duck.jpg');
+    var dragon = new saleItem('dragon', 'img/dragon.jpg');
+    var pen = new saleItem('pen', 'img/pen.jpg');
+    var petSweep = new saleItem('pet-sweep', 'img/pet-sweep.jpg');
+    var scissors = new saleItem('scissors', 'img/scissors.jpg');
+    var shark = new saleItem('shark', 'img/shark.jpg');
+    var sweep = new saleItem('sweep', 'img/sweep.png');
+    var tauntaun = new saleItem('tauntaun', 'img/tauntaun.jpg');
+    var unicorn = new saleItem('unicorn', 'img/unicorn.jpg');
+    var usb = new saleItem('usb', 'img/usb.gif');
+    var waterCan = new saleItem('water-can', 'img/water-can.jpg');
+    var wineGlass = new saleItem('wine -glass', 'img/wine-glass.jpg');
+  }
+}
 
 function updateGraphArrays() {
   for (var i = 0; i < saleItem.allProducts.length; i++) {
@@ -49,12 +58,7 @@ function updateGraphArrays() {
     votesForTitles.push(saleItem.allProducts[i].tally);
     graphShownTally.push(saleItem.allProducts[i].shownTally);
     percentages.push(saleItem.allProducts[i].conversion);
-    //These setItem into localStorage
   }
-  localStorage.titles = JSON.stringify(titles);
-  localStorage.percentages += JSON.stringify(percentages);
-  localStorage.votesForTitles += JSON.stringify(votesForTitles);
-  localStorage.graphShownTally += JSON.stringify(graphShownTally);
 };
 
 var data = {
@@ -62,7 +66,7 @@ var data = {
   labels: titles, // titles array we declared earlier
   datasets: [{
     label: 'Times Clicked',
-    data: votesForTitles = JSON.parse(localStorage.votesForTitles), // votes array we declared earlier
+    data: votesForTitles, // votes array we declared earlier
     backgroundColor: [
       'rgba(45, 142, 244, 0.5)',
       'rgba(45, 142, 244, 0.5)',
@@ -110,7 +114,7 @@ var data = {
     ],
   }, {
     label: 'Times Shown',
-    data: graphShownTally = JSON.parse(localStorage.graphShownTally),
+    data: graphShownTally,
     backgroundColor: [
       'rgba(233, 43, 17, 0.5)',
       'rgba(233, 43, 17, 0.5)',
@@ -135,7 +139,7 @@ var data = {
     ]
   }, {
     label: 'Percentage Picked of Total Times Shown',
-    data: percentages = JSON.parse(localStorage.percentages),
+    data: percentages,
     backgroundColor: [
       '#000',
       '#000',
@@ -256,23 +260,8 @@ function handleClick(e) {
     saleItem.container.innerHTML = 'Thank you for participating! You may view your results in a table by clicking the button to the right.';
     saleItem.chartButton.textContent = 'View Results';
     saleItem.container.appendChild(saleItem.chartButton);
-
   }
-  if (!window.localStore) {
-    console.log('Exists');
-  } else {
-    //These getItem out of localStorage
-    // titles = JSON.parse(localStorage.titles);
-    // percentages = JSON.parse(localStorage.percentages);
-    // votesForTitles = JSON.parse(localStorage.votesForTitles);
-    // graphShownTally = JSON.parse(localStorage.graphShownTally);
-    //These setItem
-    localStorage.titles = JSON.stringify(titles);
-    localStorage.percentages = JSON.stringify(percentages);
-    localStorage.votesForTitles = JSON.stringify(votesForTitles);
-    localStorage.graphShownTally = JSON.stringify(graphShownTally);
-  }
-
+  localStorage.setItem('dataObject', JSON.stringify(saleItem.allProducts));
 };
 
 function renderChart() {
