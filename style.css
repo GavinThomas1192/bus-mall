@@ -1,10 +1,9 @@
 
-/**{
-  border: 1px solid black;
-}*/
+* {
+font-family: 'News Cycle', sans-serif;
+}
 body {
   text-align: center;
-  /*background-color: rgb(202, 184, 210);*/
   background-image: url('img/topography.png');
 }
  h3 {
@@ -49,7 +48,7 @@ button {
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
   border-radius: 28px;
-  font-family: Arial;
+  font-family: 'News Cycle';
   color: #ffffff;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
