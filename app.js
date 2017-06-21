@@ -1,5 +1,6 @@
 'use-strict';
 //TOdo
+//****I need to put titles, percentages, and votesForTitles into local data
 var titles = [];
 var percentages = [];
 var votesForTitles = [];
@@ -233,6 +234,7 @@ function startGraphButton(r) {
   renderChart();
 }
 
+
 function handleClick(e) {
   for (var i = 0; i < saleItem.allProducts.length; i++) {
     if (event.target.id === saleItem.allProducts[i].name) {
@@ -250,6 +252,19 @@ function handleClick(e) {
     saleItem.chartButton.textContent = 'View Results';
     saleItem.container.appendChild(saleItem.chartButton);
 
+  }
+  if (!window.localStore) {
+    console.log('Exists');
+    //These getItem out of localStorage
+    titles = JSON.parse(localStorage.titles);
+    percentages = JSON.parse(localStorage.percentages);
+    votesForTitles = JSON.parse(localStorage.votesForTitles);
+    graphShownTally = JSON.parse(localStorage.graphShownTally);
+    //These setItem into localStorage
+    localStorage.titles = JSON.stringify(titles);
+    localStorage.percentages = JSON.stringify(percentages);
+    localStorage.votesForTitles = JSON.stringify(votesForTitles);
+    localStorage.graphShownTally = JSON.stringify(graphShownTally);
   }
 
 };
@@ -278,7 +293,12 @@ function renderChart() {
         ticks: {
           max: 10,
           min: 0,
-          stepSize: 1
+          stepSize: 1,
+        }
+      }],
+      xAxes: [{
+        ticks: {
+          fontSize: 40
         }
       }]
     }
