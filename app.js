@@ -49,7 +49,12 @@ function updateGraphArrays() {
     votesForTitles.push(saleItem.allProducts[i].tally);
     graphShownTally.push(saleItem.allProducts[i].shownTally);
     percentages.push(saleItem.allProducts[i].conversion);
+    //These setItem into localStorage
   }
+  localStorage.titles = JSON.stringify(titles);
+  localStorage.percentages += JSON.stringify(percentages);
+  localStorage.votesForTitles += JSON.stringify(votesForTitles);
+  localStorage.graphShownTally += JSON.stringify(graphShownTally);
 };
 
 var data = {
@@ -57,7 +62,7 @@ var data = {
   labels: titles, // titles array we declared earlier
   datasets: [{
     label: 'Times Clicked',
-    data: votesForTitles, // votes array we declared earlier
+    data: votesForTitles = JSON.parse(localStorage.votesForTitles), // votes array we declared earlier
     backgroundColor: [
       'rgba(45, 142, 244, 0.5)',
       'rgba(45, 142, 244, 0.5)',
@@ -105,7 +110,7 @@ var data = {
     ],
   }, {
     label: 'Times Shown',
-    data: graphShownTally,
+    data: graphShownTally = JSON.parse(localStorage.graphShownTally),
     backgroundColor: [
       'rgba(233, 43, 17, 0.5)',
       'rgba(233, 43, 17, 0.5)',
@@ -130,7 +135,7 @@ var data = {
     ]
   }, {
     label: 'Percentage Picked of Total Times Shown',
-    data: percentages,
+    data: percentages = JSON.parse(localStorage.percentages),
     backgroundColor: [
       '#000',
       '#000',
@@ -255,12 +260,13 @@ function handleClick(e) {
   }
   if (!window.localStore) {
     console.log('Exists');
+  } else {
     //These getItem out of localStorage
-    titles = JSON.parse(localStorage.titles);
-    percentages = JSON.parse(localStorage.percentages);
-    votesForTitles = JSON.parse(localStorage.votesForTitles);
-    graphShownTally = JSON.parse(localStorage.graphShownTally);
-    //These setItem into localStorage
+    // titles = JSON.parse(localStorage.titles);
+    // percentages = JSON.parse(localStorage.percentages);
+    // votesForTitles = JSON.parse(localStorage.votesForTitles);
+    // graphShownTally = JSON.parse(localStorage.graphShownTally);
+    //These setItem
     localStorage.titles = JSON.stringify(titles);
     localStorage.percentages = JSON.stringify(percentages);
     localStorage.votesForTitles = JSON.stringify(votesForTitles);
