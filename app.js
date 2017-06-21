@@ -220,7 +220,7 @@ function renderImage() {
     imgEl.src = queProducts[i].path;
     imgEl.id = queProducts[i].name;
     itemChoices.appendChild(imgEl);
-    // console.log(queProducts);
+
   }
   queProducts = [];
 };
@@ -246,7 +246,7 @@ function handleClick(e) {
   renderImage();
   if (saleItem.totalTally.length == 25) {
     saleItem.container.removeEventListener('click', handleClick, false);
-    saleItem.container.innerHTML = 'Thank you for participating!';
+    saleItem.container.innerHTML = 'Thank you for participating! You may view your results in a table by clicking the button to the right.';
     saleItem.chartButton.textContent = 'View Results';
     saleItem.container.appendChild(saleItem.chartButton);
 
@@ -257,7 +257,7 @@ function handleClick(e) {
 function renderChart() {
   var ctx = document.getElementById("myChart").getContext('2d');
   var myChart = new Chart(ctx, {
-    type: 'radar',
+    type: 'bar',
     data: data,
     options: {
       responsive: false,
