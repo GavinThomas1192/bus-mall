@@ -4,8 +4,9 @@ var titles = [];
 var percentages = [];
 var votesForTitles = [];
 var graphShownTally = [];
+var prodNew = [];
+var prodLast = [];
 var queProducts = [];
-var newArray = [];
 saleItem.allProducts = [];
 saleItem.totalTally = [];
 saleItem.container = document.getElementById('itemChoices');
@@ -165,36 +166,41 @@ function calcConversion() {
   }
 };
 
-function calcRandomNumber() {
-  while (queProducts.length < 3) {
-    for (var i = 0; i < 3; i++) {
-      var randomDigit = Math.floor(Math.random() * saleItem.allProducts.length);
-      saleItem.allProducts[randomDigit].shownTally += 1;
-      queProducts.push(saleItem.allProducts[randomDigit]);
-      newArray.push(saleItem.allProducts[randomDigit]);
+function getImage() {
+  prodNew = [];
+  while (prodNew.length < 3) {
+    var select = Math.floor(Math.random() * (saleItem.allProducts.length));
+    if (checkMatch(prodNew, saleItem.allProducts[select]) && checkMatch(queProducts, saleItem.allProducts[select])) {
+      prodNew.push(saleItem.allProducts[select]);
+      saleItem.allProducts[select].shownTally++;
     }
-    unique();
   }
-};
+  queProducts = prodNew;
+}
+
+function checkMatch(array, value) {
+  for (var i = 0; i < array.length; i++) {
+    if (value === array[i]) {
+      return false;
+    }
+  }
+  return true;
+}
 
 function unique() {
   var a = [], // uniques get placed into here
     b = 0; // counter to test if value is already in array 'a'
-
   for (i = 0; i < queProducts.length; i++) {
     var current = queProducts[i]; // get a value from the original array
-
     for (j = 0; j < a.length; j++) { // loop and check if value is in new array
       if (current != a[j]) {
         b++; // if its not in the new array increase counter
       }
     }
-
     if (b == a.length) { // if the counter increased on all values
       // then its not in the new array yet
       a.push(current); // put it in
     }
-
     b = 0; // reset counter
   }
 
@@ -235,12 +241,12 @@ function handleClick(e) {
     }
 
   }
-  calcRandomNumber();
+  getImage();
   calcConversion();
   renderImage();
   if (saleItem.totalTally.length == 25) {
     saleItem.container.removeEventListener('click', handleClick, false);
-    saleItem.container.innerHTML = '';
+    saleItem.container.innerHTML = 'Thank you for participating!';
     saleItem.chartButton.textContent = 'View Results';
     saleItem.container.appendChild(saleItem.chartButton);
 
