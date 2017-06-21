@@ -1,6 +1,7 @@
 'use-strict';
 //TOdo
 var titles = [];
+var percentages = [];
 var votesForTitles = [];
 var graphShownTally = [];
 var queProducts = [];
@@ -45,8 +46,10 @@ function updateGraphArrays() {
     titles.push(saleItem.allProducts[i].name);
     votesForTitles.push(saleItem.allProducts[i].tally);
     graphShownTally.push(saleItem.allProducts[i].shownTally);
+    percentages.push(saleItem.allProducts[i].conversion);
   }
 };
+
 var data = {
   label: 'Description of Objects',
   labels: titles, // titles array we declared earlier
@@ -123,6 +126,32 @@ var data = {
       'rgba(233, 43, 17, 0.5)',
       'rgba(233, 43, 17, 0.5)'
     ]
+  }, {
+    label: 'Percentage Picked of Total Times Shown',
+    data: percentages,
+    backgroundColor: [
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000',
+      '#000'
+
+    ]
   }]
 };
 
@@ -189,6 +218,7 @@ function renderImage() {
   }
   queProducts = [];
 };
+
 saleItem.chartButton.addEventListener('click', startGraphButton);
 saleItem.container.addEventListener('click', handleClick);
 
@@ -221,7 +251,7 @@ function handleClick(e) {
 function renderChart() {
   var ctx = document.getElementById("myChart").getContext('2d');
   var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'radar',
     data: data,
     options: {
       responsive: false,
