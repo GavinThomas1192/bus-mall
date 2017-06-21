@@ -1,10 +1,19 @@
 
-* {
+*{
 font-family: 'News Cycle', sans-serif;
+margin-top: 20px;
+margin-bottom: 20px;
 }
 body {
   text-align: center;
   background-image: url('img/topography.png');
+}
+main {
+  line-height: 40px;
+  border: 5px solid black;
+}
+h1 {
+  font-size: 30px;
 }
  h3 {
    font-size: 24px;
@@ -14,10 +23,7 @@ body {
  }
 #itemChoices {
   display: inline-block;
-}
-
-#seattle {
-
+  font-size: 20px;
 }
 
 #itemChoices img {
@@ -31,12 +37,14 @@ body {
 #chartButton {
   display: none;
 }
-#chart canvas{
+#myChart{
 text-align: center;
+margin: 0px auto;
 }
 
-canvas {
+#canvas {
   text-align: center;
+  margin: 0px auto;
 }
 button {
   background: #000;
@@ -48,7 +56,7 @@ button {
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
   border-radius: 28px;
-  font-family: 'News Cycle';
+  font-family: 'News Cycle', sans-serif;
   color: #ffffff;
   font-size: 20px;
   padding: 10px 20px 10px 20px;
