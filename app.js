@@ -61,6 +61,107 @@ function updateGraphArrays() {
   }
 };
 
+
+function calcConversion() {
+  for (var i = 0; i < saleItem.allProducts.length; i++) {
+    if (saleItem.allProducts[i].tally === 0) {
+      saleItem.allProducts[i].conversion = 0;
+    } else {
+      saleItem.allProducts[i].conversion = saleItem.allProducts[i].tally / saleItem.allProducts[i].shownTally;
+    }
+  }
+};
+
+function getImage() {
+  prodNew = [];
+  while (prodNew.length < 3) {
+    var select = Math.floor(Math.random() * (saleItem.allProducts.length));
+    if (checkMatch(prodNew, saleItem.allProducts[select]) && checkMatch(queProducts, saleItem.allProducts[select])) {
+      prodNew.push(saleItem.allProducts[select]);
+      saleItem.allProducts[select].shownTally++;
+    }
+  }
+  queProducts = prodNew;
+}
+
+function checkMatch(array, value) {
+  for (var i = 0; i < array.length; i++) {
+    if (value === array[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function unique() {
+  var a = [], // uniques get placed into here
+    b = 0; // counter to test if value is already in array 'a'
+  for (i = 0; i < queProducts.length; i++) {
+    var current = queProducts[i]; // get a value from the original array
+    for (j = 0; j < a.length; j++) { // loop and check if value is in new array
+      if (current != a[j]) {
+        b++; // if its not in the new array increase counter
+      }
+    }
+    if (b == a.length) { // if the counter increased on all values
+      // then its not in the new array yet
+      a.push(current); // put it in
+    }
+    b = 0; // reset counter
+  }
+
+  queProducts.length = 0; // after new array is finished creating delete the original array
+  for (i = 0; i < a.length; i++) {
+    queProducts.push(a[i]); // push all the new values into the original
+  }
+
+  return this; // return this to allow method chaining
+}
+
+function renderImage() {
+  var itemChoices = document.getElementById('itemChoices');
+  itemChoices.innerHTML = '';
+  for (var i = 0; i < 3; i++) {
+    imgEl = document.createElement('img');
+    imgEl.src = queProducts[i].path;
+    imgEl.id = queProducts[i].name;
+    itemChoices.appendChild(imgEl);
+
+  }
+  queProducts = [];
+};
+
+saleItem.chartButton.addEventListener('click', startGraphButton);
+saleItem.container.addEventListener('click', handleClick);
+
+function startGraphButton(r) {
+  alert('This data represents all participants who completed the survey.');
+  updateGraphArrays();
+  renderChart();
+}
+
+
+function handleClick(e) {
+  for (var i = 0; i < saleItem.allProducts.length; i++) {
+    if (event.target.id === saleItem.allProducts[i].name) {
+      saleItem.allProducts[i].tally += 1;
+      saleItem.totalTally.push(saleItem.allProducts[i]);
+    }
+
+  }
+  getImage();
+  calcConversion();
+  renderImage();
+  unique();
+  if (saleItem.totalTally.length == 25) {
+    saleItem.container.removeEventListener('click', handleClick, false);
+    saleItem.container.innerHTML = 'Thank you for participating!';
+    saleItem.chartButton.textContent = 'View Results';
+    saleItem.container.appendChild(saleItem.chartButton);
+  }
+  localStorage.setItem('dataObject', JSON.stringify(saleItem.allProducts));
+};
+
 var data = {
   label: 'Description of Objects',
   labels: titles, // titles array we declared earlier
@@ -164,106 +265,6 @@ var data = {
 
     ]
   }]
-};
-
-function calcConversion() {
-  for (var i = 0; i < saleItem.allProducts.length; i++) {
-    if (saleItem.allProducts[i].tally === 0) {
-      saleItem.allProducts[i].conversion = 0;
-    } else {
-      saleItem.allProducts[i].conversion = saleItem.allProducts[i].tally / saleItem.allProducts[i].shownTally;
-    }
-  }
-};
-
-function getImage() {
-  prodNew = [];
-  while (prodNew.length < 3) {
-    var select = Math.floor(Math.random() * (saleItem.allProducts.length));
-    if (checkMatch(prodNew, saleItem.allProducts[select]) && checkMatch(queProducts, saleItem.allProducts[select])) {
-      prodNew.push(saleItem.allProducts[select]);
-      saleItem.allProducts[select].shownTally++;
-    }
-  }
-  queProducts = prodNew;
-}
-
-function checkMatch(array, value) {
-  for (var i = 0; i < array.length; i++) {
-    if (value === array[i]) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function unique() {
-  var a = [], // uniques get placed into here
-    b = 0; // counter to test if value is already in array 'a'
-  for (i = 0; i < queProducts.length; i++) {
-    var current = queProducts[i]; // get a value from the original array
-    for (j = 0; j < a.length; j++) { // loop and check if value is in new array
-      if (current != a[j]) {
-        b++; // if its not in the new array increase counter
-      }
-    }
-    if (b == a.length) { // if the counter increased on all values
-      // then its not in the new array yet
-      a.push(current); // put it in
-    }
-    b = 0; // reset counter
-  }
-
-  queProducts.length = 0; // after new array is finished creating delete the original array
-  for (i = 0; i < a.length; i++) {
-    queProducts.push(a[i]); // push all the new values into the original
-  }
-
-  return this; // return this to allow method chaining
-}
-
-function renderImage() {
-  var itemChoices = document.getElementById('itemChoices');
-  itemChoices.innerHTML = '';
-  for (var i = 0; i < 3; i++) {
-    imgEl = document.createElement('img');
-    imgEl.src = queProducts[i].path;
-    imgEl.id = queProducts[i].name;
-    itemChoices.appendChild(imgEl);
-
-  }
-  queProducts = [];
-};
-
-saleItem.chartButton.addEventListener('click', startGraphButton);
-saleItem.container.addEventListener('click', handleClick);
-
-function startGraphButton(r) {
-  alert('This data represents all participants who completed the survey.');
-  updateGraphArrays();
-  renderChart();
-}
-
-
-function handleClick(e) {
-  for (var i = 0; i < saleItem.allProducts.length; i++) {
-    if (event.target.id === saleItem.allProducts[i].name) {
-      saleItem.allProducts[i].tally += 1;
-      saleItem.totalTally.push(saleItem.allProducts[i]);
-    }
-
-  }
-  getImage();
-  calcConversion();
-  renderImage();
-  unique();
-  if (saleItem.totalTally.length == 25) {
-    saleItem.container.removeEventListener('click', handleClick, false);
-    saleItem.container.innerHTML = 'Thank you for participating!';
-    saleItem.chartButton.textContent = 'View Results';
-    saleItem.container.appendChild(saleItem.chartButton);
-  }
-  localStorage.setItem('dataObject', JSON.stringify(saleItem.allProducts));
 };
 
 function renderChart() {
