@@ -256,6 +256,7 @@ function handleClick(e) {
   getImage();
   calcConversion();
   renderImage();
+  unique();
   if (saleItem.totalTally.length == 25) {
     saleItem.container.removeEventListener('click', handleClick, false);
     saleItem.container.innerHTML = 'Thank you for participating!';
