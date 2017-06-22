@@ -29,26 +29,26 @@ function updateDataSet() {
   if (storedAllProducts !== null) {
     SaleItem.allProducts = storedAllProducts;
   } else {
-    var bag = new SaleItem('bag', 'img/bag.jpg');
-    var banana = new SaleItem('banana', 'img/banana.jpg');
-    var bathroom = new SaleItem('bathroom', 'img/bathroom.jpg');
-    var boots = new SaleItem('boots', 'img/boots.jpg');
-    var breakfast = new SaleItem('breakfast', 'img/breakfast.jpg');
-    var bubblegum = new SaleItem('bubblegum', 'img/bubblegum.jpg');
-    var chair = new SaleItem('chair', 'img/chair.jpg');
-    var cthulhu = new SaleItem('cthulhu', 'img/cthulhu.jpg');
-    var dogDuck = new SaleItem('dog-duck', 'img/dog-duck.jpg');
-    var dragon = new SaleItem('dragon', 'img/dragon.jpg');
-    var pen = new SaleItem('pen', 'img/pen.jpg');
-    var petSweep = new SaleItem('pet-sweep', 'img/pet-sweep.jpg');
-    var scissors = new SaleItem('scissors', 'img/scissors.jpg');
-    var shark = new SaleItem('shark', 'img/shark.jpg');
-    var sweep = new SaleItem('sweep', 'img/sweep.png');
-    var tauntaun = new SaleItem('tauntaun', 'img/tauntaun.jpg');
-    var unicorn = new SaleItem('unicorn', 'img/unicorn.jpg');
-    var usb = new SaleItem('usb', 'img/usb.gif');
-    var waterCan = new SaleItem('water-can', 'img/water-can.jpg');
-    var wineGlass = new SaleItem('wine -glass', 'img/wine-glass.jpg');
+    new SaleItem('bag', 'img/bag.jpg');
+    new SaleItem('banana', 'img/banana.jpg');
+    new SaleItem('bathroom', 'img/bathroom.jpg');
+    new SaleItem('boots', 'img/boots.jpg');
+    new SaleItem('breakfast', 'img/breakfast.jpg');
+    new SaleItem('bubblegum', 'img/bubblegum.jpg');
+    new SaleItem('chair', 'img/chair.jpg');
+    new SaleItem('cthulhu', 'img/cthulhu.jpg');
+    new SaleItem('dog-duck', 'img/dog-duck.jpg');
+    new SaleItem('dragon', 'img/dragon.jpg');
+    new SaleItem('pen', 'img/pen.jpg');
+    new SaleItem('pet-sweep', 'img/pet-sweep.jpg');
+    new SaleItem('scissors', 'img/scissors.jpg');
+    new SaleItem('shark', 'img/shark.jpg');
+    new SaleItem('sweep', 'img/sweep.png');
+    new SaleItem('tauntaun', 'img/tauntaun.jpg');
+    new SaleItem('unicorn', 'img/unicorn.jpg');
+    new SaleItem('usb', 'img/usb.gif');
+    new SaleItem('water-can', 'img/water-can.jpg');
+    new SaleItem('wine -glass', 'img/wine-glass.jpg');
   }
 }
 
