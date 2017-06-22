@@ -239,6 +239,7 @@ saleItem.chartButton.addEventListener('click', startGraphButton);
 saleItem.container.addEventListener('click', handleClick);
 
 function startGraphButton(r) {
+  alert('This data represents all participants who completed the survey.');
   updateGraphArrays();
   renderChart();
 }
@@ -257,7 +258,7 @@ function handleClick(e) {
   renderImage();
   if (saleItem.totalTally.length == 25) {
     saleItem.container.removeEventListener('click', handleClick, false);
-    saleItem.container.innerHTML = 'Thank you for participating! You may view your results in a table by clicking the button to the right.';
+    saleItem.container.innerHTML = 'Thank you for participating!';
     saleItem.chartButton.textContent = 'View Results';
     saleItem.container.appendChild(saleItem.chartButton);
   }
